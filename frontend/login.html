@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Secura | Account</title>
+    <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+        .grecaptcha-badge {
+            bottom: 25px !important;
+            right: 120px !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <div class="auth-container move-right">
+            <div class="auth-hero">
+                <img src="images/nav.logo.svg" alt="Web Secura Logo" />
+                <h2 id="hero-title">Welcome Back!</h2>
+                <p id="hero-text">Sign in to monitor, detect, and secure your digital assets with Web Secura.</p>
+            </div>
+
+            <div class="auth-form-container">
+                <div class="form-switcher">
+                    <button id="show-signin" class="active">Sign In</button>
+                    <button id="show-signup">Sign Up</button>
+                </div>
+
+                <!-- Sign In Form -->
+                <form id="signin-form" class="auth-form active">
+                    <div class="form-group">
+                        <label for="signin-email">Email Address</label>
+                        <input type="email" id="signin-email" value="admin@gmail.com" placeholder="Enter your email" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="signin-password">Password</label>
+                        <input type="password" id="signin-password" value="admin123" placeholder="Enter your password" required />
+                    </div>
+
+                    <div class="form-group">
+                        <!-- reCAPTCHA v3 uses invisible badge and executes on button click -->
+                        <button id="signin-button" type="button" class="auth-button">
+                            Sign In
+                        </button>
+                    </div>
+                    <div class="form-footer">
+                        <p>Forgot your password? <a href="#">Reset it here</a></p>
+                    </div>
+                </form>
+
+                <!-- Sign Up Form -->
+                <form id="signup-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" placeholder="Enter your full name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email Address</label>
+                        <input type="email" id="signup-email" placeholder="Enter your email" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" placeholder="Create a password (min 8 characters)"
+                            required minlength="8" />
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="auth-button">Sign Up</button>
+                    </div>
+                    <div class="form-footer">
+                        <p>Already have an account? <a href="#" id="switch-to-signin">Sign in here</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script src="script/login.js"></script> -->
+    <script src="script/common.js"></script>
+
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lee4UIrAAAAAGviLzBK8jc6BdKULb1fwY6hXbd2"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.querySelector('.auth-container');
+            const signinBtn = document.getElementById('show-signin');
+            const signupBtn = document.getElementById('show-signup');
+            const signinForm = document.getElementById('signin-form');
+            const signupForm = document.getElementById('signup-form');
+            const heroTitle = document.getElementById('hero-title');
+            const heroText = document.getElementById('hero-text');
+            const signinButton = document.getElementById('signin-button');
+            const switchToSignin = document.getElementById('switch-to-signin');
+
+            // === UI TOGGLE ===
+            if (container && signinBtn && signupBtn && signinForm && signupForm && heroTitle && heroText) {
+                signinBtn.addEventListener('click', () => {
+                    container.classList.remove('move-left');
+                    container.classList.add('move-right');
+                    signinForm.classList.add('active');
+                    signupForm.classList.remove('active');
+                    signinBtn.classList.add('active');
+                    signupBtn.classList.remove('active');
+                    heroTitle.textContent = "Welcome Back!";
+                    heroText.textContent = "Sign in to monitor, detect, and secure your digital assets with Web Secura.";
+                });
+
+                signupBtn.addEventListener('click', () => {
+                    container.classList.remove('move-right');
+                    container.classList.add('move-left');
+                    signupForm.classList.add('active');
+                    signinForm.classList.remove('active');
+                    signupBtn.classList.add('active');
+                    signinBtn.classList.remove('active');
+                    heroTitle.textContent = "Join Web Secura Today!";
+                    heroText.textContent = "Create your account to start protecting your applications and data.";
+                });
+
+                if (switchToSignin) {
+                    switchToSignin.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        signinBtn.click();
+                    });
+                }
+            }
+
+            // === SIGNUP FORM ===
+            signupForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const name = document.getElementById('signup-name').value.trim();
+                const email = document.getElementById('signup-email').value.trim();
+                const password = document.getElementById('signup-password').value;
+
+                try {
+                    const response = await fetch('http://localhost:3000/api/auth/signup', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, email, password })
+                    });
+
+                    const data = await response.json();
+                    if (response.ok) {
+                        alert('Signup successful! Please sign in.');
+                        signinBtn.click();
+                        signupForm.reset();
+                    } else {
+                        alert(data.error || 'Signup failed.');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert('Something went wrong during signup.');
+                }
+            });
+
+            // === SIGNIN with reCAPTCHA v3 ===
+            signinButton.addEventListener('click', () => {
+                grecaptcha.ready(function () {
+                    grecaptcha.execute('6Lee4UIrAAAAAGviLzBK8jc6BdKULb1fwY6hXbd2', { action: 'submit' })
+                        .then(function (captchaToken) {
+                            handleLogin(captchaToken);
+                        })
+                        .catch(function (err) {
+                            console.error('reCAPTCHA error:', err);
+                            alert('Failed to verify captcha. Please try again.');
+                        });
+                });
+            });
+
+            // === Login Function (used by reCAPTCHA) ===
+            async function handleLogin(captchaToken) {
+                const email = document.getElementById('signin-email').value.trim();
+                const password = document.getElementById('signin-password').value;
+
+                try {
+                    const response = await fetch('http://localhost:3000/api/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password, captcha: captchaToken }),
+                    });
+
+                    const data = await response.json();
+
+                    console.log('Login response data:', data); // Log full response data for debugging
+
+                    if (response.ok && data.token) {
+                        // console.log('JWT Token:', data.token); // Log the token
+
+                        sessionStorage.setItem('token', data.token); // Store JWT token
+
+                        signinForm.reset(); // Clear the form
+
+                        window.location.href = 'dash.html'; // Redirect to dashboard
+                    } else {
+                        alert(data.error || 'Login failed.');
+                    }
+                } catch (err) {
+                    console.error('Login error:', err);
+                    alert('Something went wrong during login.');
+                }
+
+
+            }
+        });
+    </script>
+
+</body>
+
+</html>

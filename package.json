@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "pg-monitor": "^3.0.0"
+  }
+}

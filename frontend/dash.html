@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Dashboard | Web Secura</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- navbar -->
+        <nav class="navbar">
+        <div class="navbox">
+            <a href="#" class="logo">
+                <img src="images/nav.logo.svg" alt="Web Secura Logo" />
+                Welcome to Web Secura
+            </a>
+
+            <div id="toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="dash.html" class="nav-item">Dashboard</a></li>
+                <li><a href="scan.html" class="nav-item">Start Scan</a></li>
+                <li><a href="report.html" class="nav-item">Reports</a></li>
+                <li><a href="#" class="nav-item" id="login-logout-link">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="dashapp">
+        <!-- Main Content Area -->
+        <main class="dash-content-area">
+            <div class="dash-dashboard-header">
+                <div class="dash-header-title">
+                    <h1>Web Secura Dashboard</h1>
+                    <p>Welcome back! Here's what's happening with your websites.</p>
+                </div>
+                <div class="dash-user-panel">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Profile">
+                    <div class="dash-user-details" id="user-info">
+                        <h4>John Doe</h4>
+                        <p>Admin</p>
+                    </div>
+                    <div class="dash-user-menu" id="user-dropdown">
+                        <a href="#" class="dash-menu-item">Edit Profile</a>
+                        <a href="#" class="dash-menu-item">Logout</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metric Grid -->
+            <div class="dash-metric-grid">
+                <div class="dash-metric-card">
+                    <div class="dash-card-header">
+                        <div class="dash-card-label">Total Scans</div>
+                        <div class="dash-card-icon scans">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                    <div class="dash-card-value"></div>
+                    <div class="dash-card-change positive">
+                        <i class="fas fa-arrow-up"></i> 12% from last week
+                    </div>
+                </div>
+                <div class="dash-metric-card">
+                    <div class="dash-card-header">
+                        <div class="dash-card-label">Vulnerabilities</div>
+                        <div class="dash-card-icon vulnerabilities">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                    </div>
+                    <div class="dash-card-value"></div>
+                    <div class="dash-card-change negative">
+                        <i class="fas fa-arrow-down"></i> 3% from last week
+                    </div>
+                </div>
+                <div class="dash-metric-card">
+                    <div class="dash-card-header">
+                        <div class="dash-card-label">Protected Sites</div>
+                        <div class="dash-card-icon protected">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="dash-card-value"></div>
+                    <div class="dash-card-change positive">
+                        <i class="fas fa-arrow-up"></i> 2 new this month
+                    </div>
+                </div>
+                <div class="dash-metric-card">
+                    <div class="dash-card-header">
+                        <div class="dash-card-label">Uptime</div>
+                        <div class="dash-card-icon uptime">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="dash-card-value"></div>
+                    <div class="dash-card-change positive">
+                        <i class="fas fa-check"></i> All systems operational
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Grid -->
+            <div class="dash-action-grid">
+                <div class="dash-action-card">
+                    <div class="dash-action-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <h3 class="dash-action-title">New Scan</h3>
+                    <p class="dash-action-desc">Start scanning a new website</p>
+                </div>
+                <div class="dash-action-card">
+                    <div class="dash-action-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="dash-action-title">Quick Scan</h3>
+                    <p class="dash-action-desc">Run a fast security check</p>
+                </div>
+                <div class="dash-action-card">
+                    <div class="dash-action-icon">
+                        <i class="fas fa-shield-virus"></i>
+                    </div>
+                    <h3 class="dash-action-title">Protect Site</h3>
+                    <p class="dash-action-desc">Enable security monitoring</p>
+                </div>
+                <div class="dash-action-card">
+                    <div class="dash-action-icon">
+                        <i class="fas fa-file-export"></i>
+                    </div>
+                    <h3 class="dash-action-title">Generate Report</h3>
+                    <p class="dash-action-desc">Create a detailed security report</p>
+                </div>
+            </div>
+
+            <!-- Scan Status -->
+            <div class="dash-scan-status">
+                <div class="dash-section-title">
+                    <h2>Current Scans</h2>
+                    <a href="#">View All</a>
+                </div>
+                <div class="dash-scan-progress">
+                    <div class="dash-scan-info">
+                        <div class="dash-scan-name">Dashboard: www.example.com - Full Scan</div>
+                        <div class="dash-scan-percent">65%</div>
+                    </div>
+                    <div class="dash-progress-bar">
+                        <div class="dash-progress-fill"></div>
+                    </div>
+                </div>
+                <div class="dash-scan-stats">
+                    <div class="dash-stat-item">
+                        <div class="dash-stat-value">3</div>
+                        <div class="dash-stat-label">Critical Issues</div>
+                    </div>
+                    <div class="dash-stat-item">
+                        <div class="dash-stat-value">12</div>
+                        <div class="dash-stat-label">Pages Scanned</div>
+                    </div>
+                    <div class="dash-stat-item">
+                        <div class="dash-stat-value">47</div>
+                        <div class="dash-stat-label">Tests Completed</div>
+                    </div>
+                    <div class="dash-stat-item">
+                        <div class="dash-stat-value">1h 23m</div>
+                        <div class="dash-stat-label">Time Remaining</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vulnerability Chart -->
+            <div class="dash-vuln-chart">
+                <div class="dash-section-title">
+                    <h2>Vulnerability Trends</h2>
+                    <a href="#">View Details</a>
+                </div>
+                <div class="dash-chart-container">
+                    <img src="https://via.placeholder.com/800x320?text=Vulnerability+Chart+Placeholder"
+                        alt="Vulnerability Chart"
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                </div>
+            </div>
+
+            <!-- Recent Scans -->
+            <div class="dash-recent-scans">
+                <div class="dash-section-title">
+                    <h2>Recent Scans</h2>
+                    <a href="#">View All</a>
+                </div>
+                <table class="dash-scan-table">
+                    <thead>
+                        <tr>
+                            <th>Website</th>
+                            <!-- <th>Type</th> -->
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="dash-scan-url">
+                                    <i class="fas fa-globe"></i>
+                                    www.example.com
+                                </div>
+                            </td>
+                            <td>Full Scan</td>
+                            <td>
+                                <span class="dash-status-badge dash-status-completed">Completed</span>
+                            </td>
+                            <td>Today, 10:45 AM</td>
+                            <td class="dash-scan-actions">
+                                <a href="#"><i class="fas fa-eye"></i></a>
+                                <a href="#"><i class="fas fa-download"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="dash-scan-url">
+                                    <i class="fas fa-globe"></i>
+                                    shop.example.com
+                                </div>
+                            </td>
+                            <td>Quick Scan</td>
+                            <td>
+                                <span class="dash-status-badge dash-status-running">Running</span>
+                            </td>
+                            <td>Today, 9:30 AM</td>
+                            <td class="dash-scan-actions">
+                                <a href="#"><i class="fas fa-eye"></i></a>
+                                <a href="#"><i class="fas fa-stop"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="dash-scan-url">
+                                    <i class="fas fa-globe"></i>
+                                    blog.example.com
+                                </div>
+                            </td>
+                            <td>Vulnerability Scan</td>
+                            <td>
+                                <span class="dash-status-badge dash-status-completed">Completed</span>
+                            </td>
+                            <td>Yesterday, 4:15 PM</td>
+                            <td class="dash-scan-actions">
+                                <a href="#"><i class="fas fa-eye"></i></a>
+                                <a href="#"><i class="fas fa-download"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="dash-scan-url">
+                                    <i class="fas fa-globe"></i>
+                                    dev.example.com
+                                </div>
+                            </td>
+                            <td>Full Scan</td>
+                            <td>
+                                <span class="dash-status-badge dash-status-failed">Failed</span>
+                            </td>
+                            <td>Yesterday, 2:00 PM</td>
+                            <td class="dash-scan-actions">
+                                <a href="#"><i class="fas fa-eye"></i></a>
+                                <a href="#"><i class="fas fa-redo"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="dash-scan-url">
+                                    <i class="fas fa-globe"></i>
+                                    api.example.com
+                                </div>
+                            </td>
+                            <td>API Scan</td>
+                            <td>
+                                <span class="dash-status-badge dash-status-completed">Completed</span>
+                            </td>
+                            <td>May 15, 11:20 AM</td>
+                            <td class="dash-scan-actions">
+                                <a href="#"><i class="fas fa-eye"></i></a>
+                                <a href="#"><i class="fas fa-download"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script/dash.js"></script>
+</body>
+</html>

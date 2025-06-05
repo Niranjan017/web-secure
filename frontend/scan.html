@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Start Scan | Web Secura</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+     <nav class="navbar">
+        <div class="navbox">
+            <a href="#" class="logo">
+                <img src="images/nav.logo.svg" alt="Web Secura Logo" />
+                Welcome to Web Secura
+            </a>
+
+            <div id="toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="dash.html" class="nav-item">Dashboard</a></li>
+                <li><a href="scan.html" class="nav-item">Start Scan</a></li>
+                <li><a href="report.html" class="nav-item">Reports</a></li>
+                <li><a href="#" class="nav-item" id="login-logout-link">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="scan-container">
+        <div class="page-header">
+            <h1>Start Vulnerability Scan</h1>
+            <p>Scan URLs or IP addresses for common security vulnerabilities and open ports</p>
+        </div>
+
+        <div class="scan-card">
+            <form class="scan-form" id="scanForm">
+                <div class="form-group">
+                    <label for="target">Target (URL or IP Address)</label>
+                    <input type="text" id="target" value="xss-quiz.int21h.jp/" placeholder="https://example.com or 192.168.1.1" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Scan Features</label>
+                    <div class="scan-features">
+                        <!-- Vulnerability Scan Card -->
+                        <div class="feature-card" id="vulnCard">
+                            <h3><i class="fas fa-shield-virus"></i> Web Vulnerability Scan</h3>
+                            <p>Check for common web vulnerabilities like XSS, SQL injection, and security headers</p>
+                            <div class="feature-options" id="vulnOptions">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="xssCheck" name="vulnChecks"  />
+                                    <label for="xssCheck">XSS (Cross-Site Scripting)</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="sqliCheck" name="vulnChecks" checked />
+                                    <label for="sqliCheck">SQL Injection</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="headersCheck" name="vulnChecks"  />
+                                    <label for="headersCheck">Security Headers</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="csrfCheck" name="vulnChecks" />
+                                    <label for="csrfCheck">CSRF (Cross-Site Request Forgery)</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Port Scan Card -->
+                        <div class="feature-card" id="portCard">
+                            <h3><i class="fas fa-plug"></i> Port Scan</h3>
+                            <p>Identify open ports and services running on the target</p>
+                            <div class="feature-options" id="portOptions">
+                                <label>Port Range</label>
+                                <div class="ports-input">
+                                    <input type="number" id="portStart" placeholder="Start" value="1" min="1"
+                                        max="65535" />
+                                    <span>to</span>
+                                    <input type="number" id="portEnd" placeholder="End" value="1024" min="1"
+                                        max="65535" />
+                                </div>
+                                <div class="checkbox-group" style="margin-top: 10px;">
+                                    <input type="checkbox" id="commonPorts" checked />
+                                    <label for="commonPorts">Scan common ports only</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="scan-name">Scan Name (Optional)</label>
+                    <input type="text" id="scan-name" value="My Security Scan" placeholder="My Security Scan" />
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="scan-btn" onclick="saveAsDraft()">Save as Draft</button>
+                    <button type="submit" class="scanmain-btn">Start Scan</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="script/scan.js"></script>
+    <script src="script/common.js"></script>
+    <script src="script/auth-check.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth((data) => {
+                document.getElementById('scan-content').innerText = `Welcome ${data.user.email}, ready to scan!`;
+                // Scan-specific content here
+            });
+        });
+    </script>
+
+</body>
+
+</html>
